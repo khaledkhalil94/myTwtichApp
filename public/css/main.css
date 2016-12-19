@@ -1,0 +1,47 @@
+.ui.segment.main-layout {
+  text-align: center;
+}
+
+.ui.main.grid {
+  min-height: 90vh;
+}
+
+.ui.main.grid .segment.panel.info {
+  height: 100%;
+}
+
+.ui.main.grid .segment.frame {
+  height: 80%;
+  min-height: 400px;
+}
+
+.ui.main.grid .segment.description {
+  height: 18%;
+}
+
+.ui.compact.negative.message {
+  padding: 9px;
+  margin-left: 5px;
+  position: absolute;
+  top: 0px;
+}
+
+@media (max-height: 750px){
+  .ui.main.grid .segment.description {
+    display: none;
+  }
+
+  .ui.main.grid .segment.frame {
+    height: 100%;
+  }
+}
+
+@media (max-width: 1600px){
+  .ui.main.grid .segment.panel.info {
+    display: none;
+  }
+
+  .ui.main.grid .twelve.wide.column {
+    width: 100%!important;
+  }
+}
