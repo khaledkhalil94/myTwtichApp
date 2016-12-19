@@ -8,11 +8,9 @@ const attrs = {
   width: '1120'
 }
 
-export default ({loading, user}) => {
-  const className = 'ui segment left frame' + (loading ? ' loading' : '');
+export default ({stream}) => {
+  const {channel} = stream
   return (
-    <div className={className}>
-      {user && <iframe src={`https://player.twitch.tv/?channel=${user.name}`} {...attrs}></iframe>}
-    </div>
+      <iframe src={`https://player.twitch.tv/?channel=${channel.display_name}`} {...attrs}></iframe>
   )
 }

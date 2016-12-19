@@ -1,29 +1,17 @@
 import fetch from 'isomorphic-fetch'
+import {searchUserSucc, searchStreamSucc, startLoad, startStreamLoad, sendErr} from './actionCreator'
+const secrect = '5pxy4vaivucz7u727dvfidxsbwngwv'
 
-function searchUserSucc(username) {
-  return {
-    type: 'USERNAME_FOUND',
-    username
-  }
-}
-
-function startLoad(){
-  return {
-    type: 'START_LOAD'
-  }
-}
-
-function sendErr(err){
-  return {
-    type: 'ERR',
-    err
-  }
+function getStream(name, dispatch){
+  const url = `https://api.twitch.tv/kraken/streams/${name}?client_id=${secrect}`
+  fetch(url)
+  .then( res => res.json() )
+  .then( json => dispatch(searchStreamSucc(json)) )
 }
 
 export function searchForUser(username){
-  const secrect = '5pxy4vaivucz7u727dvfidxsbwngwv'
   const url = `https://api.twitch.tv/kraken/users/${username}?client_id=${secrect}`
-  return(dispatch) => {
+  return(dispatch, getState) => {
     if(!username) {
       dispatch(sendErr('Enter a username.'))
       return
@@ -32,10 +20,19 @@ export function searchForUser(username){
     return fetch(url)
     .then(res => {
       if(res.status === 200) return res.json()
-      else dispatch(sendErr('User was not found.'))
+      else dispatch(sendErr('User not found'))
     })
     .then(json => {
-      if(json) dispatch(searchUserSucc(json))
+      if(json){
+        let user = getState().state.user;
+        dispatch(searchUserSucc(json))
+        if(user && (user._id === json._id)) {
+          dispatch(searchUserSucc(user))
+        } else {
+          dispatch(startStreamLoad())
+          getStream(username, dispatch)
+        }
+      }
     })
   }
 }

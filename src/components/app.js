@@ -14,6 +14,11 @@ class App extends Component {
     this.state = ({timer: null})
   }
 
+  componentDidMount() {
+    const {search} = this.props
+    search('admiralbulldog')
+  }
+
   handleChange(e){
     if(e.length !== e.trim().length) return
     if(this.state.timer) clearTimeout(this.state.timer)
@@ -23,21 +28,24 @@ class App extends Component {
   }
 
   render () {
-    const {err, errMsg, loading, user} = this.props
+    const {err, errMsg, searchLoad, user, stream, streamLoad} = this.props
+    const loading = streamLoad ? ' loading' : ''
     return (
       <div className='ui segment main-layout'>
-        <Input name={user} onChange={this.handleChange} />
+        <Input load={searchLoad} user={user} onChange={this.handleChange} />
         {err && <Err msg={errMsg} />}
-        <br />
-        <br />
         <div className="ui divider"></div>
         <div className='ui main grid'>
           <div className='twelve wide column'>
-            <Frame loading={loading} user={user} />
-            <Desc loading={loading} user={user} />
+            <div className={'ui segment left frame' + loading}>
+              {stream && <Frame stream={stream} />}
+            </div>
+            <div className={'ui segment description' + loading}>
+              {stream && <Desc stream={stream} />}
+            </div>
           </div>
           <div className='four wide column'>
-            <Follows />
+            <Follows loading={streamLoad} />
           </div>
         </div>
       </div>
@@ -46,12 +54,10 @@ class App extends Component {
 }
 
 function mapStateToProps(state){
-  const {err, errMsg, loading, user} = state
+  const [{err, errMsg, stream, user}, {searchLoad, streamLoad}] = [state.state, state.loader]
   return {
-    user,
-    err,
-    errMsg,
-    loading
+    user, err, errMsg, stream,
+    searchLoad, streamLoad
   }
 }
 

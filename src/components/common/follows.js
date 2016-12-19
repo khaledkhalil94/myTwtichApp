@@ -1,9 +1,9 @@
 import React from 'react'
 
 export default (props) => {
-
+  const className = 'ui segment right panel' + (props.loading ? ' loading' : '');
   return (
-    <div className='ui segment right panel'>
+    <div className={className}>
       <p>Following -to be added-</p>
     </div>
   )

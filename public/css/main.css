@@ -6,7 +6,7 @@
   min-height: 90vh;
 }
 
-.ui.main.grid .segment.panel.info {
+.ui.main.grid .segment.panel.right {
   height: 100%;
 }
 
@@ -37,7 +37,7 @@
 }
 
 @media (max-width: 1600px){
-  .ui.main.grid .segment.panel.info {
+  .ui.main.grid .segment.panel.right {
     display: none;
   }
 
