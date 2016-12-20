@@ -5,6 +5,13 @@ export function searchUserSucc(username) {
   }
 }
 
+export function saveStreamer(name) {
+  return {
+    type: 'SAVE_STREAMER',
+    name
+  }
+}
+
 export function searchStreamSucc(stream) {
   return {
     type: 'SEARCH_STREAM_SUCCESS',
@@ -28,5 +35,12 @@ export function sendErr(err){
   return {
     type: 'ERR',
     err
+  }
+}
+
+export function switchStream(name){
+  return {
+    type: 'SWITCH_STREAM',
+    name
   }
 }

@@ -1,5 +1,7 @@
 import fetch from 'isomorphic-fetch'
-import {searchUserSucc, searchStreamSucc, startLoad, startStreamLoad, sendErr} from './actionCreator'
+import {searchUserSucc, searchStreamSucc, startLoad,
+        startStreamLoad, sendErr, saveStreamer} from './actionCreator'
+
 const secrect = '5pxy4vaivucz7u727dvfidxsbwngwv'
 
 function getStream(name, dispatch){
@@ -26,6 +28,7 @@ export function searchForUser(username){
       if(json){
         let user = getState().state.user;
         dispatch(searchUserSucc(json))
+        dispatch(saveStreamer(json))
         if(user && (user._id === json._id)) {
           dispatch(searchUserSucc(user))
         } else {

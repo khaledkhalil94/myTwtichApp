@@ -21,11 +21,18 @@ const loader = (state = {}, action) => {
 
 //const defaultState = {user: null, stream: null, err: false}
 
-const state = (state = {}, action) => {
+const state = (state = { streamersHistory: [] }, action) => {
   switch (action.type) {
 
     case 'SEARCH_USER_SUCCESS':
       return {...state, err: false, user: action.username}
+
+    case 'SWITCH_STREAM':
+      return {...state, user: action.name}
+
+    case 'SAVE_STREAMER':
+      let history = state.streamersHistory || [];
+      return {...state, streamersHistory: [action.name, ...history]}
 
     case 'SEARCH_STREAM_SUCCESS':
       return {...state, stream: action.stream.stream}

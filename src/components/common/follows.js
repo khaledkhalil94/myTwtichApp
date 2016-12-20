@@ -1,10 +1,13 @@
 import React from 'react'
+import { Input } from 'semantic-ui-react'
 
 export default (props) => {
-  const className = 'ui segment right panel' + (props.loading ? ' loading' : '');
+  const load = false
   return (
-    <div className={className}>
-      <p>Following -to be added-</p>
-    </div>
+    <Input
+      loading={load}
+      disabled={load}
+      icon='search'
+      />
   )
 }

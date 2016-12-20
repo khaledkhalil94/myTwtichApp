@@ -6,7 +6,12 @@
   min-height: 90vh;
 }
 
-.ui.main.grid .segment.panel.right {
+.ui.attached.segment {
+  min-height: 300px;
+  text-align: left;
+}
+
+.ui.main.grid .panel.right {
   height: 100%;
 }
 
@@ -37,7 +42,7 @@
 }
 
 @media (max-width: 1600px){
-  .ui.main.grid .segment.panel.right {
+  .ui.main.grid .panel.right {
     display: none;
   }
 

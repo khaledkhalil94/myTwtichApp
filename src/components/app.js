@@ -5,18 +5,13 @@ import Frame from './common/iframe'
 import Desc from './common/userDesc'
 import Err from './common/err'
 import Input from './common/input'
-import Follows from './common/follows'
+import RightPanel from './rightPanel'
 
 class App extends Component {
   constructor(){
     super()
     this.handleChange = this.handleChange.bind(this)
     this.state = ({timer: null})
-  }
-
-  componentDidMount() {
-    const {search} = this.props
-    search('admiralbulldog')
   }
 
   handleChange(e){
@@ -30,6 +25,7 @@ class App extends Component {
   render () {
     const {err, errMsg, searchLoad, user, stream, streamLoad} = this.props
     const loading = streamLoad ? ' loading' : ''
+
     return (
       <div className='ui segment main-layout'>
         <Input load={searchLoad} user={user} onChange={this.handleChange} />
@@ -38,14 +34,14 @@ class App extends Component {
         <div className='ui main grid'>
           <div className='twelve wide column'>
             <div className={'ui segment left frame' + loading}>
-              {stream && <Frame stream={stream} />}
+              {user && <Frame user={user} />}
             </div>
             <div className={'ui segment description' + loading}>
               {stream && <Desc stream={stream} />}
             </div>
           </div>
           <div className='four wide column'>
-            <Follows loading={streamLoad} />
+            <RightPanel />
           </div>
         </div>
       </div>
