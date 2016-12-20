@@ -19,9 +19,17 @@ export function searchStreamSucc(stream) {
   }
 }
 
-export function startLoad(){
+export function getFollowsSucc(follows) {
   return {
-    type: 'START_SEARCH_LOAD'
+    type: 'GET_FOLLOWS_SUCCESS',
+    follows
+  }
+}
+
+export function startLoad(loadType){
+  return {
+    type: 'START_SEARCH_LOAD',
+    loadType
   }
 }
 

@@ -1,6 +1,7 @@
 import React from 'react'
-import {streamSwitch} from '../actions'
-import Follows from './common/follows'
+import {streamSwitch, getUserFollows, searchForUser} from '../actions'
+import FollowsInput from './common/followsInput'
+import FollowsList from './common/followsList'
 import History from './common/history'
 import { Header, Segment } from 'semantic-ui-react'
 import {connect} from 'react-redux'
@@ -10,6 +11,9 @@ class panel extends React.Component {
   constructor(){
     super()
     this.historyClick = this.historyClick.bind(this)
+    this.followsChange = this.followsChange.bind(this)
+    this.followsClick = this.followsClick.bind(this)
+    this.state = ({timer: null})
   }
 
   historyClick(e){
@@ -17,8 +21,20 @@ class panel extends React.Component {
     streamSwitch(e)
   }
 
+  followsChange(e){
+    const { search } = this.props
+    if(this.state.timer) clearTimeout(this.state.timer)
+    let id = setTimeout(()=> search(e.trim()), 1000)
+    this.setState({timer: id})
+  }
+
+  followsClick(e){
+    const { userSearch } = this.props
+    userSearch(e)
+  }
+
   render(){
-    const { history } = this.props
+    const { history, follows } = this.props
     return (
       <div className='right panel'>
         <div className='follows'>
@@ -26,8 +42,9 @@ class panel extends React.Component {
             Following
           </Header>
           <Segment attached>
-            <p>Enter your Twitch username to see streamers you follow</p>
-            <Follows />
+            { follows ? <FollowsList click={this.followsClick} follows={follows} />
+              : <FollowsInput change={this.followsChange} />
+            }
           </Segment>
         </div>
         <div className='history'>
@@ -45,13 +62,16 @@ class panel extends React.Component {
 
 function mapStateToProps({state}){
   return {
-    history: state.streamersHistory
+    history: state.streamersHistory,
+    follows: state.follows
   }
 }
 
 function mapDispatchToProps(dispatch){
   return {
-    streamSwitch: e => dispatch(streamSwitch(e))
+    streamSwitch: e => dispatch(streamSwitch(e)),
+    search: e => dispatch(getUserFollows(e)),
+    userSearch: (e) => dispatch(searchForUser(e))
   }
 }
 

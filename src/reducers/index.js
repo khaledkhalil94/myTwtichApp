@@ -25,6 +25,9 @@ const state = (state = {}, action) => {
     case 'SEARCH_USER_SUCCESS':
       return {...state, err: false, user: action.username}
 
+    case 'GET_FOLLOWS_SUCCESS':
+      return {...state, err: false, follows: action.follows}
+
     case 'SAVE_STREAMER':
       let history = state.streamersHistory || [];
       return {...state, streamersHistory: [action.name, ...history]}
