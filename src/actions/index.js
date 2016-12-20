@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-fetch'
 import {searchUserSucc, searchStreamSucc, startLoad,
-        startStreamLoad, sendErr, saveStreamer} from './actionCreator'
+        startStreamLoad, sendErr, saveStreamer, switchStream} from './actionCreator'
 
 const secrect = '5pxy4vaivucz7u727dvfidxsbwngwv'
 
@@ -9,6 +9,15 @@ function getStream(name, dispatch){
   fetch(url)
   .then( res => res.json() )
   .then( json => dispatch(searchStreamSucc(json)) )
+}
+
+export function streamSwitch(user){
+  const url = `https://api.twitch.tv/kraken/streams/${user.name}?client_id=${secrect}`
+  return (dispatch) => {
+    fetch(url)
+    .then( res => res.json() )
+    .then( json => dispatch(switchStream(json)) )
+  }
 }
 
 export function searchForUser(username){

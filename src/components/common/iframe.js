@@ -8,4 +8,8 @@ const attrs = {
   width: '1120'
 }
 
-export default ({user}) => <iframe src={`https://player.twitch.tv/?channel=${user.name}`} {...attrs}></iframe>
+export default ({user, stream}) => {
+
+  const name = stream ? stream.channel.name : user.name
+  return (<iframe src={`https://player.twitch.tv/?channel=${name}`} {...attrs}></iframe>)
+}

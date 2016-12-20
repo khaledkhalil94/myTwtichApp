@@ -1,5 +1,5 @@
 import React from 'react'
-import {switchStream} from '../actions/actionCreator'
+import {streamSwitch} from '../actions'
 import Follows from './common/follows'
 import History from './common/history'
 import { Header, Segment } from 'semantic-ui-react'
@@ -13,8 +13,8 @@ class panel extends React.Component {
   }
 
   historyClick(e){
-    const { switchStream } = this.props
-    switchStream(e)
+    const { streamSwitch } = this.props
+    streamSwitch(e)
   }
 
   render(){
@@ -51,7 +51,7 @@ function mapStateToProps({state}){
 
 function mapDispatchToProps(dispatch){
   return {
-    switchStream: e => dispatch(switchStream(e))
+    streamSwitch: e => dispatch(streamSwitch(e))
   }
 }
 

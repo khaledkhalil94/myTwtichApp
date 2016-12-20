@@ -34,7 +34,7 @@ class App extends Component {
         <div className='ui main grid'>
           <div className='twelve wide column'>
             <div className={'ui segment left frame' + loading}>
-              {user && <Frame user={user} />}
+              {user && <Frame user={user} stream={stream} />}
             </div>
             <div className={'ui segment description' + loading}>
               {stream && <Desc stream={stream} />}

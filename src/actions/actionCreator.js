@@ -38,9 +38,9 @@ export function sendErr(err){
   }
 }
 
-export function switchStream(name){
+export function switchStream(stream){
   return {
     type: 'SWITCH_STREAM',
-    name
+    stream
   }
 }
